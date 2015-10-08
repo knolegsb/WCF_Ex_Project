@@ -10,20 +10,24 @@ namespace EvalServiceLibrary
     [ServiceBehavior(InstanceContextMode =InstanceContextMode.Single)]
     public class EvalService : IEvalService
     {
-        #region IEvalService Members
+        List<Eval> evals = new List<Eval>();
+
+        #region IEvalService Members       
+        
+        public void SubmitEval(Eval eval)
+        {
+            eval.Id = Guid.NewGuid().ToString();
+            evals.Add(eval);
+        }
+
         public List<Eval> GetEvals()
         {
-            throw new NotImplementedException();
+            return evals;
         }
 
         public void RemoveEval(string id)
         {
-            throw new NotImplementedException();
-        }
-
-        public void SubmitEval(Eval eval)
-        {
-            throw new NotImplementedException();
+            evals.Remove(evals.Find(e => e.Id.Equals(id)));
         }
 
         #endregion
